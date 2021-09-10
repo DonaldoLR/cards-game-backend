@@ -10,10 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_09_192352) do
+ActiveRecord::Schema.define(version: 2021_09_10_120554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cards", force: :cascade do |t|
+    t.string "name"
+    t.string "design_image"
+    t.integer "build_cost"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "decks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "card_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_decks_on_card_id"
+    t.index ["user_id"], name: "index_decks_on_user_id"
+  end
+
+  create_table "user_cards", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "card_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_user_cards_on_card_id"
+    t.index ["user_id"], name: "index_user_cards_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -22,4 +49,6 @@ ActiveRecord::Schema.define(version: 2021_09_09_192352) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "decks", "cards"
+  add_foreign_key "decks", "users"
 end
