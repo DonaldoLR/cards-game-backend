@@ -33,18 +33,9 @@ ActiveRecord::Schema.define(version: 2021_09_10_120554) do
     t.index ["user_id"], name: "index_decks_on_user_id"
   end
 
-  create_table "user_cards", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "card_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["card_id"], name: "index_user_cards_on_card_id"
-    t.index ["user_id"], name: "index_user_cards_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "avatar_img"
+    t.string "avatar_image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
