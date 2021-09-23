@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :name, :avatar_image
+  attributes :id, :name, :avatar_image
 
   has_many :cards
 end
