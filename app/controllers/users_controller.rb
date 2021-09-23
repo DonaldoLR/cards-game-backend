@@ -14,11 +14,15 @@ class UsersController < ApplicationController
         user.cards << Card.find_by(name: "Wheat Field")
         user.cards << Card.find_by(name: "Ranch")
         render json: user, status: :created
+    rescue ActiveRecord::RecordInvalid => invalid
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
     def update 
         user = find_user 
         user.update!(user_params)
         render json: user, status: :accepted
+    rescue ActiveRecord::RecordInvalid => invalid
+        render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
     end
     def destroy 
         user = find_user
